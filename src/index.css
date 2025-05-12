@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar{
+  display: none;
+}
+*{
+  scrollbar-width: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+/* Ajouter le défilement fluide */
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
+
+@font-face {
+  font-family: 'Almost';
+  src: url('./assets/fonts/Almost.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
