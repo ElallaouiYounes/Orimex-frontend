@@ -149,7 +149,7 @@ const Logistics = () => {
     },
   ];
 
-  return (
+return (
     <div className="w-full h-[calc(100vh-180px)] overflow-y-auto pb-6">
       {/* page header */}
       <ModernLogisticsHeader />
@@ -161,203 +161,82 @@ const Logistics = () => {
           Fleet Management
         </h2>
 
-        <div className="w-full overflow-x-auto whitespace-nowrap border rounded-sm mb-6">
-          <div className="inline-block min-w-full">
-            {/* Fleet table header */}
-            <div className="flex text-xs font-medium font-inter h-10 tracking-wider bg-gray-200/25">
-              {[
-                "VEHICLE ID",
-                "LICENSE PLATE",
-                "TYPE",
-                "CAPACITY",
-                "CURRENT LOCATION",
-                "STATUS",
-                "DRIVER",
-                "LAST MAINTENANCE",
-                "NEXT MAINTENANCE",
-                "MODEL",
-                "ACTIONS",
-              ].map((header, index) => (
-                <div
-                  key={index}
-                  className="px-6 h-full hover:bg-gray-200/40 flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      header,
-                      fleetData,
-                      index,
-                      "fleet"
-                    )}px`,
-                  }}
-                >
-                  {header}
-                </div>
+        <div className="w-full overflow-x-auto border rounded-sm mb-6">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-200/25">
+              <tr className="text-xs font-medium font-inter h-10 tracking-wider">
+                <th className="px-6 py-3 text-left whitespace-nowrap">VEHICLE ID</th>
+                <th className="px-6 py-3 text-left whitespace-nowrap">LICENSE PLATE</th>
+                <th className="px-6 py-3 text-left whitespace-nowrap">TYPE</th>
+                <th className="px-6 py-3 text-left whitespace-nowrap">CAPACITY</th>
+                <th className="px-6 py-3 text-left min-w-[200px]">CURRENT LOCATION</th>
+                <th className="px-6 py-3 text-left whitespace-nowrap">STATUS</th>
+                <th className="px-6 py-3 text-left whitespace-nowrap">DRIVER</th>
+                <th className="px-6 py-3 text-left whitespace-nowrap">LAST MAINTENANCE</th>
+                <th className="px-6 py-3 text-left whitespace-nowrap">NEXT MAINTENANCE</th>
+                <th className="px-6 py-3 text-left whitespace-nowrap">MODEL</th>
+                <th className="px-6 py-3 text-left whitespace-nowrap">ACTIONS</th>
+              </tr>
+            </thead>
+
+            <tbody className="bg-white divide-y divide-gray-200">
+              {fleetData.map((item, rowIndex) => (
+                <tr key={rowIndex} className="text-xs font-normal text-gray-600 h-10">
+                  <td className="px-6 py-3 whitespace-nowrap text-blue-600">
+                    {item.vehicleId}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    {item.licensePlate}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    {item.type}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    {item.capacity}
+                  </td>
+                  <td className="px-6 py-3 min-w-[200px]">
+                    {item.currentLocation}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    <div
+                      className={`flex items-center px-2 py-1 gap-1 rounded-xl ${item.status.color} ${item.status.bg}`}
+                    >
+                      <item.status.icon />
+                      {item.status.name}
+                    </div>
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    {item.driver}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    {item.lastMaintenance}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    {item.nextMaintenance}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    {item.model}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    <div className="flex items-center gap-3">
+                      <FaMapMarkedAlt className="cursor-pointer text-amber-500" />
+                      <LuPencilLine className="cursor-pointer text-green-500" />
+                      <MdDelete className="cursor-pointer text-red-500" />
+                    </div>
+                  </td>
+                </tr>
               ))}
-            </div>
-
-            {/* Fleet table content */}
-            {fleetData.map((item, rowIndex) => (
-              <div
-                key={rowIndex}
-                className="flex text-xs font-normal text-gray-600 h-10 border-t"
-              >
-                <div
-                  className="px-6 h-full flex items-center text-blue-600 flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      "VEHICLE ID",
-                      fleetData,
-                      0,
-                      "fleet"
-                    )}px`,
-                  }}
-                >
-                  {item.vehicleId}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      "LICENSE PLATE",
-                      fleetData,
-                      1,
-                      "fleet"
-                    )}px`,
-                  }}
-                >
-                  {item.licensePlate}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth("TYPE", fleetData, 2, "fleet")}px`,
-                  }}
-                >
-                  {item.type}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      "CAPACITY",
-                      fleetData,
-                      3,
-                      "fleet"
-                    )}px`,
-                  }}
-                >
-                  {item.capacity}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      "CURRENT LOCATION",
-                      fleetData,
-                      4,
-                      "fleet"
-                    )}px`,
-                  }}
-                >
-                  {item.currentLocation}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      "STATUS",
-                      fleetData,
-                      5,
-                      "fleet"
-                    )}px`,
-                  }}
-                >
-                  <div
-                    className={`flex items-center px-2 py-1 gap-1 rounded-xl ${item.status.color} ${item.status.bg}`}
-                  >
-                    <item.status.icon />
-                    {item.status.name}
-                  </div>
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      "DRIVER",
-                      fleetData,
-                      6,
-                      "fleet"
-                    )}px`,
-                  }}
-                >
-                  {item.driver}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      "LAST MAINTENANCE",
-                      fleetData,
-                      7,
-                      "fleet"
-                    )}px`,
-                  }}
-                >
-                  {item.lastMaintenance}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      "NEXT MAINTENANCE",
-                      fleetData,
-                      8,
-                      "fleet"
-                    )}px`,
-                  }}
-                >
-                  {item.nextMaintenance}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      "MODEL",
-                      fleetData,
-                      9,
-                      "fleet"
-                    )}px`,
-                  }}
-                >
-                  {item.model}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center gap-3 flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      "ACTIONS",
-                      fleetData,
-                      10,
-                      "fleet"
-                    )}px`,
-                  }}
-                >
-                  <FaMapMarkedAlt className="cursor-pointer text-amber-500" />
-                  <LuPencilLine className="cursor-pointer text-green-500" />
-                  <MdDelete className="cursor-pointer text-red-500" />
-                </div>
-              </div>
-            ))}
-          </div>
+            </tbody>
+          </table>
         </div>
-      </div>
 
-      <Pagination
-        currentPage={currentPage}
-        totalItems={fleetData.length}
-        itemsPerPage={itemsPerPage}
-        onPageChange={setCurrentPage}
-      />
+        <Pagination
+          currentPage={currentPage}
+          totalItems={fleetData.length}
+          itemsPerPage={itemsPerPage}
+          onPageChange={setCurrentPage}
+        />
+      </div>
 
       {/* Warehouse Management Section */}
       <div className="mb-8">
@@ -366,186 +245,80 @@ const Logistics = () => {
           Warehouse Management
         </h2>
 
-        <div className="w-full overflow-x-auto whitespace-nowrap border rounded-sm mb-6">
-          <div className="inline-block min-w-full">
-            {/* Warehouse table header */}
-            <div className="flex text-xs font-medium font-inter h-10 tracking-wider bg-gray-200/25">
-              {[
-                "WAREHOUSE ID",
-                "NAME",
-                "LOCATION",
-                "CAPACITY",
-                "CURRENT STOCK",
-                "UTILIZATION",
-                "MANAGER",
-                "CONTACT",
-                "ACTIONS",
-              ].map((header, index) => (
-                <div
-                  key={index}
-                  className="px-6 h-full hover:bg-gray-200/40 flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      header,
-                      warehouses,
-                      index,
-                      "warehouse"
-                    )}px`,
-                  }}
-                >
-                  {header}
-                </div>
+        <div className="w-full overflow-x-auto border rounded-sm mb-6">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-200/25">
+              <tr className="text-xs font-medium font-inter text-black/70 h-10 tracking-wider">
+                <th className="px-6 py-3 text-left whitespace-nowrap">WAREHOUSE ID</th>
+                <th className="px-6 py-3 text-left whitespace-nowrap">NAME</th>
+                <th className="px-6 py-3 text-left whitespace-nowrap">LOCATION</th>
+                <th className="px-6 py-3 text-left whitespace-nowrap">CAPACITY</th>
+                <th className="px-6 py-3 text-left whitespace-nowrap">CURRENT STOCK</th>
+                <th className="px-6 py-3 text-left min-w-[150px]">UTILIZATION</th>
+                <th className="px-6 py-3 text-left whitespace-nowrap">MANAGER</th>
+                <th className="px-6 py-3 text-left whitespace-nowrap">CONTACT</th>
+                <th className="px-6 py-3 text-left whitespace-nowrap">ACTIONS</th>
+              </tr>
+            </thead>
+
+            <tbody className="bg-white divide-y divide-gray-200">
+              {warehouses.map((item, rowIndex) => (
+                <tr key={rowIndex} className="text-xs font-normal text-gray-600 h-10">
+                  <td className="px-6 py-3 whitespace-nowrap text-blue-600">
+                    {item.warehouseId}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    {item.name}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    {item.location}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    {item.capacity}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    {item.currentStock}
+                  </td>
+                  <td className="px-6 py-3 min-w-[150px]">
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div
+                        className={`h-2 rounded-full ${
+                          item.utilization > 85
+                            ? "bg-red-500"
+                            : item.utilization > 70
+                            ? "bg-amber-500"
+                            : "bg-green-500"
+                        }`}
+                        style={{ width: `${item.utilization}%` }}
+                      ></div>
+                    </div>
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    {item.manager}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    {item.contact}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    <div className="flex items-center gap-3">
+                      <FaBoxes className="cursor-pointer text-amber-500" />
+                      <LuPencilLine className="cursor-pointer text-green-500" />
+                      <MdDelete className="cursor-pointer text-red-500" />
+                    </div>
+                  </td>
+                </tr>
               ))}
-            </div>
-
-            {/* Warehouse table content */}
-            {warehouses.map((item, rowIndex) => (
-              <div
-                key={rowIndex}
-                className="flex text-xs font-normal text-gray-600 h-10 border-t"
-              >
-                <div
-                  className="px-6 h-full flex items-center text-blue-600 flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      "WAREHOUSE ID",
-                      warehouses,
-                      0,
-                      "warehouse"
-                    )}px`,
-                  }}
-                >
-                  {item.warehouseId}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      "NAME",
-                      warehouses,
-                      1,
-                      "warehouse"
-                    )}px`,
-                  }}
-                >
-                  {item.name}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      "LOCATION",
-                      warehouses,
-                      2,
-                      "warehouse"
-                    )}px`,
-                  }}
-                >
-                  {item.location}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      "CAPACITY",
-                      warehouses,
-                      3,
-                      "warehouse"
-                    )}px`,
-                  }}
-                >
-                  {item.capacity}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      "CURRENT STOCK",
-                      warehouses,
-                      4,
-                      "warehouse"
-                    )}px`,
-                  }}
-                >
-                  {item.currentStock}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      "UTILIZATION",
-                      warehouses,
-                      5,
-                      "warehouse"
-                    )}px`,
-                  }}
-                >
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div
-                      className={`h-2 rounded-full ${
-                        item.utilization > 85
-                          ? "bg-red-500"
-                          : item.utilization > 70
-                          ? "bg-amber-500"
-                          : "bg-green-500"
-                      }`}
-                      style={{ width: `${item.utilization}%` }}
-                    ></div>
-                  </div>
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      "MANAGER",
-                      warehouses,
-                      6,
-                      "warehouse"
-                    )}px`,
-                  }}
-                >
-                  {item.manager}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      "CONTACT",
-                      warehouses,
-                      7,
-                      "warehouse"
-                    )}px`,
-                  }}
-                >
-                  {item.contact}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center gap-3 flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth(
-                      "ACTIONS",
-                      warehouses,
-                      8,
-                      "warehouse"
-                    )}px`,
-                  }}
-                >
-                  <FaBoxes className="cursor-pointer text-amber-500" />
-                  <LuPencilLine className="cursor-pointer text-green-500" />
-                  <MdDelete className="cursor-pointer text-red-500" />
-                </div>
-              </div>
-            ))}
-          </div>
+            </tbody>
+          </table>
         </div>
-      </div>
 
-      <Pagination
-        currentPage={currentPage}
-        totalItems={warehouses.length}
-        itemsPerPage={itemsPerPage}
-        onPageChange={setCurrentPage}
-      />
+        <Pagination
+          currentPage={currentPage}
+          totalItems={warehouses.length}
+          itemsPerPage={itemsPerPage}
+          onPageChange={setCurrentPage}
+        />
+      </div>
 
       {/* Analytics Dashboard */}
       <div className="mt-6">
@@ -558,91 +331,5 @@ const Logistics = () => {
     </div>
   );
 };
-
-// Helper function to calculate column width based on content
-function getColumnWidth(header, data, columnIndex, type) {
-  // Base width for the header text
-  const headerWidth = header.length * 8 + 32; // 8px per character + padding
-
-  // Find the widest content in this column
-  let maxContentWidth = 0;
-  data.forEach((item) => {
-    let content = "";
-
-    if (type === "fleet") {
-      switch (columnIndex) {
-        case 0:
-          content = item.vehicleId;
-          break;
-        case 1:
-          content = item.licensePlate;
-          break;
-        case 2:
-          content = item.type;
-          break;
-        case 3:
-          content = item.capacity;
-          break;
-        case 4:
-          content = item.currentLocation;
-          break;
-        case 5:
-          content = item.status.name;
-          break;
-        case 6:
-          content = item.driver;
-          break;
-        case 7:
-          content = item.lastMaintenance;
-          break;
-        case 8:
-          content = item.nextMaintenance;
-          break;
-        case 9:
-          content = "Fuel Level";
-          break;
-        case 10:
-          content = "Actions";
-          break;
-      }
-    } else if (type === "warehouse") {
-      switch (columnIndex) {
-        case 0:
-          content = item.warehouseId;
-          break;
-        case 1:
-          content = item.name;
-          break;
-        case 2:
-          content = item.location;
-          break;
-        case 3:
-          content = item.capacity;
-          break;
-        case 4:
-          content = item.currentStock;
-          break;
-        case 5:
-          content = "Utilization";
-          break;
-        case 6:
-          content = item.manager;
-          break;
-        case 7:
-          content = item.contact;
-          break;
-        case 8:
-          content = "Actions";
-          break;
-      }
-    }
-
-    const contentWidth = content.toString().length * 8 + 32;
-    if (contentWidth > maxContentWidth) maxContentWidth = contentWidth;
-  });
-
-  // Return the larger of header width or max content width
-  return Math.max(headerWidth, maxContentWidth, 120); // Minimum width of 120px
-}
 
 export default Logistics;

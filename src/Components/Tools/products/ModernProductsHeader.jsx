@@ -7,7 +7,7 @@ const ModernProductsHeader = () => {
       {/* Top section with title and create button */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800 mb-1">Products Inventory</h1>
+          <h1 className="text-2xl font-bold text-gray-800 mb-1">Products</h1>
           <p className="text-gray-500 text-sm">Manage your glass and aluminum products</p>
         </div>
         

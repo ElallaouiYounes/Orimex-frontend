@@ -263,10 +263,10 @@ const Navbar = () => {
               ></div>
               <div className="hidden lg:block">
                 <p className="text-sm font-medium capitalize">
-                  {user.fullname}
+                  {user.fullname || 'EL ALLAOUI YOUNES'}
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  {user.role}
+                  {user.role || 'Developer'}
                 </p>
               </div>
               <RiArrowDropDownLine
@@ -294,7 +294,7 @@ const Navbar = () => {
                       ></div>
                       <div>
                         <p className="font-medium text-sm capitalize">
-                          {user.fullname}
+                          {user.fullname || 'EL ALLAOUI YOUNES'}
                         </p>
                         <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
                           {user.email.length > 15

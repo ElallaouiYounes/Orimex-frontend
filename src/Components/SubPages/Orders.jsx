@@ -41,7 +41,7 @@ const Orders = () => {
     {
       orderId: "LNIV-2025-002",
       customerName: "Marrakech Glass Solutions",
-      orderDate: "2025-05-18",
+      orderDate: "2025-07-18",
       expectedDelivery: "2025-06-25",
       status: {
         name: "Shipped",
@@ -203,161 +203,86 @@ const Orders = () => {
     },
   ];
 
-  return (
+ return (
     <div className="w-full h-[calc(100vh-180px)] overflow-y-auto pb-6">
       {/* page header */}
       <ModernOrdersHeader />
 
       {/* table container */}
-      <div className="w-full overflow-x-auto whitespace-nowrap border rounded-sm">
-        {/* table */}
-        <div className="inline-block min-w-full">
+      <div className="w-full overflow-x-auto border rounded-sm">
+        <table className="min-w-full divide-y divide-gray-200">
           {/* table header */}
-          <div className="flex text-xs font-medium font-inter h-10 tracking-wider bg-gray-200/25">
-            {[
-              "ORDER ID",
-              "CUSTOMER NAME",
-              "ORDER DATE",
-              "EXPECTED DELIVERY",
-              "STATUS",
-              "PRODUCT ID",
-              "PRODUCT NAME",
-              "QUANTITY",
-              "DIMENSIONS",
-              "THICKNESS",
-              "COLOR",
-              "ACTIONS",
-            ].map((header, index) => (
-              <div
-                key={index}
-                className="px-6 h-full hover:bg-gray-200/40 flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth(header, fakeOrders, index)}px`,
-                }}
-              >
-                {header}
-              </div>
-            ))}
-          </div>
+          <thead className="bg-gray-200/25">
+            <tr className="text-xs font-medium font-inter text-black/70 h-10 tracking-wider">
+              <th className="px-6 py-3 text-left whitespace-nowrap">ORDER ID</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">CUSTOMER NAME</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">ORDER DATE</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">EXPECTED DELIVERY</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">STATUS</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">PRODUCT ID</th>
+              <th className="px-6 py-3 text-left min-w-[200px]">PRODUCT NAME</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">QUANTITY</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">DIMENSIONS</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">THICKNESS</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">COLOR</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">ACTIONS</th>
+            </tr>
+          </thead>
 
-          {/* table content */}
-          {fakeOrders.map((item, rowIndex) => (
-            <div
-              key={rowIndex}
-              className="flex text-xs font-normal text-gray-600 h-10 border-t"
-            >
-              <div
-                className="px-6 h-full flex items-center text-blue-600 flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("ORDER ID", fakeOrders, 0)}px`,
-                }}
-              >
-                {item.orderId}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("CUSTOMER NAME", fakeOrders, 1)}px`,
-                }}
-              >
-                {item.customerName}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("ORDER DATE", fakeOrders, 2)}px`,
-                }}
-              >
-                {item.orderDate}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth(
-                    "EXPECTED DELIVERY",
-                    fakeOrders,
-                    3
-                  )}px`,
-                }}
-              >
-                {item.expectedDelivery}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("STATUS", fakeOrders, 4)}px`,
-                }}
-              >
-                <div
-                  className={`flex items-center px-2 py-1 gap-1 rounded-xl ${item.status.color} ${item.status.bg}`}
-                >
-                  <item.status.icon />
-                  {item.status.name}
-                </div>
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("PRODUCT ID", fakeOrders, 5)}px`,
-                }}
-              >
-                {item.productId}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("PRODUCT NAME", fakeOrders, 6)}px`,
-                }}
-              >
-                {item.productName}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("QUANTITY", fakeOrders, 7)}px`,
-                }}
-              >
-                {item.quantity}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("DIMENSIONS", fakeOrders, 8)}px`,
-                }}
-              >
-                {item.dimensions}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("THICKNESS", fakeOrders, 9)}px`,
-                }}
-              >
-                {item.thickness}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("COLOR", fakeOrders, 10)}px`,
-                }}
-              >
-                {item.color}
-              </div>
-              <div
-                className="px-6 h-full flex items-center gap-3 flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("ACTIONS", fakeOrders, 11)}px`,
-                }}
-              >
-                <FaEye className="cursor-pointer text-amber-500" />
-                <LuPencilLine className="cursor-pointer text-green-500" />
-                <MdDelete className="cursor-pointer text-red-500" />
-              </div>
-            </div>
-          ))}
-        </div>
+          {/* table body */}
+          <tbody className="bg-white divide-y divide-gray-200">
+            {fakeOrders.map((item, rowIndex) => (
+              <tr key={rowIndex} className="text-xs font-normal text-gray-600 h-10">
+                <td className="px-6 py-3 whitespace-nowrap text-blue-600">
+                  {item.orderId}
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  {item.customerName}
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  {item.orderDate}
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  {item.expectedDelivery}
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  <div
+                    className={`flex items-center px-2 py-1 gap-1 rounded-xl ${item.status.color} ${item.status.bg}`}
+                  >
+                    <item.status.icon />
+                    {item.status.name}
+                  </div>
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  {item.productId}
+                </td>
+                <td className="px-6 py-3 min-w-[200px]">
+                  {item.productName}
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  {item.quantity}
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  {item.dimensions}
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  {item.thickness}
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  {item.color}
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  <div className="flex items-center gap-3">
+                    <FaEye className="cursor-pointer text-amber-500" />
+                    <LuPencilLine className="cursor-pointer text-green-500" />
+                    <MdDelete className="cursor-pointer text-red-500" />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-      {/* ---------- */}
 
       <Pagination
         currentPage={currentPage}
@@ -377,61 +302,5 @@ const Orders = () => {
     </div>
   );
 };
-
-// Helper function to calculate column width based on content
-function getColumnWidth(header, data, columnIndex) {
-  // Base width for the header text
-  const headerWidth = header.length * 8 + 32; // 8px per character + padding
-
-  // Find the widest content in this column
-  let maxContentWidth = 0;
-  data.forEach((item) => {
-    let content = "";
-    switch (columnIndex) {
-      case 0:
-        content = item.orderId;
-        break;
-      case 1:
-        content = item.customerName;
-        break;
-      case 2:
-        content = item.orderDate;
-        break;
-      case 3:
-        content = item.expectedDelivery;
-        break;
-      case 4:
-        content = item.status.name;
-        break;
-      case 5:
-        content = item.productId;
-        break;
-      case 6:
-        content = item.productName;
-        break;
-      case 7:
-        content = item.quantity;
-        break;
-      case 8:
-        content = item.dimensions;
-        break;
-      case 9:
-        content = item.thickness;
-        break;
-      case 10:
-        content = item.color;
-        break;
-      case 11:
-        content = "Actions";
-        break;
-    }
-
-    const contentWidth = content.toString().length * 8 + 32;
-    if (contentWidth > maxContentWidth) maxContentWidth = contentWidth;
-  });
-
-  // Return the larger of header width or max content width
-  return Math.max(headerWidth, maxContentWidth, 120); // Minimum width of 120px
-}
 
 export default Orders;

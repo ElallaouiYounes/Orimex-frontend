@@ -142,59 +142,35 @@ const Products = () => {
       <ModernProductsHeader />
 
       {/* table container */}
-      <div className="w-full overflow-x-auto whitespace-nowrap border rounded-sm">
-        {/* table */}
-        <div className="inline-block min-w-full">
+      <div className="w-full overflow-x-auto border rounded-sm">
+        <table className="min-w-full divide-y divide-gray-200">
           {/* table header */}
-          <div className="flex text-xs font-medium font-inter h-10 tracking-wider bg-gray-200/25">
-            {[
-              "PRODUCT ID",
-              "BARCODE",
-              "NAME",
-              "CATEGORY",
-              "THICKNESS",
-              "COLOR",
-              "DIMENSIONS",
-              "STOCK",
-              "PRICE",
-              "STATUS",
-              "ACTIONS",
-            ].map((header, index) => (
-              <div
-                key={`header-${index}`}
-                className="px-6 h-full hover:bg-gray-200/40 flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth(header, fakeProducts, index)}px`,
-                }}
-              >
-                {header}
-              </div>
-            ))}
-          </div>
+          <thead className="bg-gray-200/25">
+            <tr className="text-xs font-medium text-black/70 font-inter h-10 tracking-wider">
+              <th className="px-6 py-3 text-left whitespace-nowrap">PRODUCT ID</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">BARCODE</th>
+              <th className="px-6 py-3 text-left min-w-[250px]">NAME</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">CATEGORY</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">THICKNESS</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">COLOR</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">DIMENSIONS</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">STOCK</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">PRICE</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">STATUS</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">ACTIONS</th>
+            </tr>
+          </thead>
 
-          {/* table content */}
-          {fakeProducts
-            .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
-            .map((item, rowIndex) => (
-              <div
-                key={rowIndex}
-                className="flex text-xs font-normal text-gray-600 h-10 border-t"
-              >
-                <div
-                  className="px-6 h-full flex items-center text-blue-600 flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth("PRODUCT ID", fakeProducts, 0)}px`,
-                  }}
-                >
-                  {item.productId}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth("BARCODE", fakeProducts, 1)}px`,
-                  }}
-                >
-                  <div className="w-full">
+          {/* table body */}
+          <tbody className="bg-white divide-y divide-gray-200">
+            {fakeProducts
+              .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+              .map((item, rowIndex) => (
+                <tr key={rowIndex} className="text-xs font-normal text-gray-600 h-10">
+                  <td className="px-6 py-3 whitespace-nowrap text-blue-600">
+                    {item.productId}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
                     <Barcode
                       value={item.barcode}
                       width={1}
@@ -203,104 +179,60 @@ const Products = () => {
                       margin={0}
                       displayValue={false}
                     />
-                  </div>
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth("NAME", fakeProducts, 2)}px`,
-                  }}
-                >
-                  {item.name}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth("CATEGORY", fakeProducts, 3)}px`,
-                  }}
-                >
-                  {item.category}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth("THICKNESS", fakeProducts, 4)}px`,
-                  }}
-                >
-                  {item.thickness}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth("COLOR", fakeProducts, 5)}px`,
-                  }}
-                >
-                  {item.color}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth("DIMENSIONS", fakeProducts, 6)}px`,
-                  }}
-                >
-                  {item.dimensions}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth("STOCK", fakeProducts, 7)}px`,
-                  }}
-                >
-                  {item.stock}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth("PRICE", fakeProducts, 8)}px`,
-                  }}
-                >
-                  {item.price}
-                </div>
-                <div
-                  className="px-6 h-full flex items-center flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth("STATUS", fakeProducts, 9)}px`,
-                  }}
-                >
-                  <div
-                    className={`flex items-center px-2 py-1 gap-1 rounded-xl ${
-                      item.status === "In Stock"
-                        ? "text-green-500 bg-green-100"
-                        : item.status === "Out of Stock"
-                        ? "text-red-500 bg-red-100"
-                        : "text-amber-500 bg-amber-100"
-                    }`}
-                  >
-                    {item.status === "In Stock" ? (
-                      <FaBox className="text-green-500" />
-                    ) : item.status === "Out of Stock" ? (
-                      <FaTimesCircle className="text-red-500" />
-                    ) : (
-                      <FaClock className="text-amber-500" />
-                    )}
-                    {item.status}
-                  </div>
-                </div>
-                <div
-                  className="px-6 h-full flex items-center gap-3 flex-shrink-0"
-                  style={{
-                    width: `${getColumnWidth("ACTIONS", fakeProducts, 11)}px`,
-                  }}
-                >
-                  <FaEye className="cursor-pointer text-amber-500" />
-                  <LuPencilLine className="cursor-pointer text-green-500" />
-                  <MdDelete className="cursor-pointer text-red-500" />
-                </div>
-              </div>
-            ))}
-        </div>
+                  </td>
+                  <td className="px-6 py-3 min-w-[250px]">
+                    {item.name}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    {item.category}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    {item.thickness}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    {item.color}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    {item.dimensions}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    {item.stock}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    {item.price}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    <div
+                      className={`flex items-center px-2 py-1 gap-1 rounded-xl ${
+                        item.status === "In Stock"
+                          ? "text-green-500 bg-green-100"
+                          : item.status === "Out of Stock"
+                          ? "text-red-500 bg-red-100"
+                          : "text-amber-500 bg-amber-100"
+                      }`}
+                    >
+                      {item.status === "In Stock" ? (
+                        <FaBox className="text-green-500" />
+                      ) : item.status === "Out of Stock" ? (
+                        <FaTimesCircle className="text-red-500" />
+                      ) : (
+                        <FaClock className="text-amber-500" />
+                      )}
+                      {item.status}
+                    </div>
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    <div className="flex items-center gap-3">
+                      <FaEye className="cursor-pointer text-amber-500" />
+                      <LuPencilLine className="cursor-pointer text-green-500" />
+                      <MdDelete className="cursor-pointer text-red-500" />
+                    </div>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
       </div>
-      {/* ---------- */}
 
       <Pagination
         currentPage={currentPage}
@@ -320,59 +252,5 @@ const Products = () => {
     </div>
   );
 };
-
-// Helper function to calculate column width based on content
-function getColumnWidth(header, data, columnIndex) {
-  // Base width for the header text
-  const headerWidth = header.length * 8 + 32; // 8px per character + padding
-
-  // Find the widest content in this column
-  let maxContentWidth = 0;
-  data.forEach((item) => {
-    let content = "";
-    switch (columnIndex) {
-      case 0:
-        content = item.productId;
-        break;
-      case 1:
-        content = item.barcode;
-        break;
-      case 2:
-        content = item.name;
-        break;
-      case 3:
-        content = item.category;
-        break;
-      case 4:
-        content = item.thickness;
-        break;
-      case 5:
-        content = item.color;
-        break;
-      case 6:
-        content = item.dimensions;
-        break;
-      case 7:
-        content = item.stock;
-        break;
-      case 8:
-        content = item.price;
-        break;
-      case 9:
-        content = item.status;
-        break;
-      case 10:
-        content = "Actions";
-        break;
-    }
-
-    const contentWidth =
-      columnIndex === 1 ? 150 : content.toString().length * 8 + 32;
-    if (contentWidth > maxContentWidth) maxContentWidth = contentWidth;
-  });
-
-  // Return the larger of header width or max content width
-  return Math.max(headerWidth, maxContentWidth, 120); // Minimum width of 120px
-}
 
 export default Products;

@@ -38,7 +38,6 @@ const Transactions = () => {
         color: "text-green-500",
         bg: "bg-green-100",
       },
-      invoiceNumber: "INV-2024-001",
       notes: "Final payment for order",
     },
     {
@@ -59,7 +58,6 @@ const Transactions = () => {
         color: "text-green-500",
         bg: "bg-green-100",
       },
-      invoiceNumber: "INV-2024-002",
       notes: "50% advance payment",
     },
     {
@@ -80,7 +78,6 @@ const Transactions = () => {
         color: "text-amber-500",
         bg: "bg-amber-100",
       },
-      invoiceNumber: "INV-2024-003",
       notes: "Deposit for laminated glass",
     },
     {
@@ -101,7 +98,6 @@ const Transactions = () => {
         color: "text-green-500",
         bg: "bg-green-100",
       },
-      invoiceNumber: "INV-2024-004",
       notes: "Full payment for mirrors",
     },
     {
@@ -122,7 +118,6 @@ const Transactions = () => {
         color: "text-red-500",
         bg: "bg-red-100",
       },
-      invoiceNumber: "INV-2024-005",
       notes: "Payment declined - card expired",
     },
     {
@@ -143,7 +138,6 @@ const Transactions = () => {
         color: "text-green-500",
         bg: "bg-green-100",
       },
-      invoiceNumber: "INV-2024-006",
       notes: "Refund processed",
     },
     {
@@ -164,7 +158,6 @@ const Transactions = () => {
         color: "text-amber-500",
         bg: "bg-amber-100",
       },
-      invoiceNumber: "INV-2024-007",
       notes: "First installment",
     },
     {
@@ -185,7 +178,6 @@ const Transactions = () => {
         color: "text-green-500",
         bg: "bg-green-100",
       },
-      invoiceNumber: "INV-2024-008",
       notes: "On-site payment",
     },
     {
@@ -206,7 +198,6 @@ const Transactions = () => {
         color: "text-green-500",
         bg: "bg-green-100",
       },
-      invoiceNumber: "INV-2024-009",
       notes: "Initial deposit",
     },
     {
@@ -227,7 +218,6 @@ const Transactions = () => {
         color: "text-amber-500",
         bg: "bg-amber-100",
       },
-      invoiceNumber: "INV-2024-010",
       notes: "Final payment upon delivery",
     },
   ];
@@ -238,138 +228,73 @@ const Transactions = () => {
       <ModernTransactionsHeader />
 
       {/* table container */}
-      <div className="w-full overflow-x-auto whitespace-nowrap border rounded-sm">
-        {/* table */}
-        <div className="inline-block min-w-full">
+      <div className="w-full overflow-x-auto border rounded-sm">
+        <table className="min-w-full divide-y divide-gray-200">
           {/* table header */}
-          <div className="flex text-xs font-medium font-inter h-10 tracking-wider bg-gray-200/25">
-            {[
-              "TRANSACTION ID",
-              "ORDER ID",
-              "CUSTOMER NAME",
-              "DATE",
-              "AMOUNT",
-              "PAYMENT METHOD",
-              "STATUS",
-              "INVOICE NUMBER",
-              "NOTES",
-              "ACTIONS",
-            ].map((header, index) => (
-              <div
-                key={index}
-                className="px-6 h-full hover:bg-gray-200/40 flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth(header, fakeTransactions, index)}px`,
-                }}
-              >
-                {header}
-              </div>
-            ))}
-          </div>
+          <thead className="bg-gray-200/25">
+            <tr className="text-xs font-medium font-inter text-black/70 h-10 tracking-wider">
+              <th className="px-6 py-3 text-left whitespace-nowrap">TRANSACTION ID</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">ORDER ID</th>
+              <th className="px-6 py-3 text-left min-w-[180px]">CUSTOMER NAME</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">DATE</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">AMOUNT</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">PAYMENT METHOD</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">STATUS</th>
+              <th className="px-6 py-3 text-left min-w-[200px]">NOTES</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">ACTIONS</th>
+            </tr>
+          </thead>
 
-          {/* table content */}
-          {fakeTransactions.map((item, rowIndex) => (
-            <div
-              key={rowIndex}
-              className="flex text-xs font-normal text-gray-600 h-10 border-t"
-            >
-              <div
-                className="px-6 h-full flex items-center text-blue-600 flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("TRANSACTION ID", fakeTransactions, 0)}px`,
-                }}
-              >
-                {item.transactionId}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("ORDER ID", fakeTransactions, 1)}px`,
-                }}
-              >
-                {item.orderId}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("CUSTOMER NAME", fakeTransactions, 2)}px`,
-                }}
-              >
-                {item.customerName}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("DATE", fakeTransactions, 3)}px`,
-                }}
-              >
-                {item.date}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("AMOUNT", fakeTransactions, 4)}px`,
-                }}
-              >
-                {item.amount}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("PAYMENT METHOD", fakeTransactions, 5)}px`,
-                }}
-              >
-                <div
-                  className={`flex items-center px-2 py-1 gap-1 rounded-xl ${item.paymentMethod.color} ${item.paymentMethod.bg}`}
-                >
-                  <item.paymentMethod.icon />
-                  {item.paymentMethod.name}
-                </div>
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("STATUS", fakeTransactions, 6)}px`,
-                }}
-              >
-                <div
-                  className={`flex items-center px-2 py-1 gap-1 rounded-xl ${item.status.color} ${item.status.bg}`}
-                >
-                  <item.status.icon />
-                  {item.status.name}
-                </div>
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("INVOICE NUMBER", fakeTransactions, 7)}px`,
-                }}
-              >
-                {item.invoiceNumber}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("NOTES", fakeTransactions, 8)}px`,
-                }}
-              >
-                {item.notes}
-              </div>
-              <div
-                className="px-6 h-full flex items-center gap-3 flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("ACTIONS", fakeTransactions, 9)}px`,
-                }}
-              >
-                <FaEye className="cursor-pointer text-amber-500" />
-                <LuPencilLine className="cursor-pointer text-green-500" />
-                <MdDelete className="cursor-pointer text-red-500" />
-              </div>
-            </div>
-          ))}
-        </div>
+          {/* table body */}
+          <tbody className="bg-white divide-y divide-gray-200">
+            {fakeTransactions.map((item, rowIndex) => (
+              <tr key={rowIndex} className="text-xs font-normal text-gray-600 h-10">
+                <td className="px-6 py-3 whitespace-nowrap text-blue-600">
+                  {item.transactionId}
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  {item.orderId}
+                </td>
+                <td className="px-6 py-3 min-w-[180px]">
+                  {item.customerName}
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  {item.date}
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  {item.amount}
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  <div
+                    className={`flex items-center px-2 py-1 gap-1 rounded-xl ${item.paymentMethod.color} ${item.paymentMethod.bg}`}
+                  >
+                    <item.paymentMethod.icon />
+                    {item.paymentMethod.name}
+                  </div>
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  <div
+                    className={`flex items-center px-2 py-1 gap-1 rounded-xl ${item.status.color} ${item.status.bg}`}
+                  >
+                    <item.status.icon />
+                    {item.status.name}
+                  </div>
+                </td>
+                <td className="px-6 py-3 min-w-[200px]">
+                  {item.notes}
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  <div className="flex items-center gap-3">
+                    <FaEye className="cursor-pointer text-amber-500" />
+                    <LuPencilLine className="cursor-pointer text-green-500" />
+                    <MdDelete className="cursor-pointer text-red-500" />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-      {/* ---------- */}
 
       <Pagination
         currentPage={currentPage}
@@ -389,55 +314,5 @@ const Transactions = () => {
     </div>
   );
 };
-
-// Helper function to calculate column width based on content
-function getColumnWidth(header, data, columnIndex) {
-  // Base width for the header text
-  const headerWidth = header.length * 8 + 32; // 8px per character + padding
-
-  // Find the widest content in this column
-  let maxContentWidth = 0;
-  data.forEach((item) => {
-    let content = "";
-    switch (columnIndex) {
-      case 0:
-        content = item.transactionId;
-        break;
-      case 1:
-        content = item.orderId;
-        break;
-      case 2:
-        content = item.customerName;
-        break;
-      case 3:
-        content = item.date;
-        break;
-      case 4:
-        content = item.amount;
-        break;
-      case 5:
-        content = item.paymentMethod.name;
-        break;
-      case 6:
-        content = item.status.name;
-        break;
-      case 7:
-        content = item.invoiceNumber;
-        break;
-      case 8:
-        content = item.notes;
-        break;
-      case 9:
-        content = "Actions";
-        break;
-    }
-
-    const contentWidth = content.toString().length * 8 + 32;
-    if (contentWidth > maxContentWidth) maxContentWidth = contentWidth;
-  });
-
-  // Return the larger of header width or max content width
-  return Math.max(headerWidth, maxContentWidth, 120); // Minimum width of 120px
-}
 
 export default Transactions;

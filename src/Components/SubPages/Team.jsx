@@ -200,138 +200,88 @@ const Team = () => {
     },
   ];
 
-  return (
+return (
     <div className="w-full h-[calc(100vh-180px)] overflow-y-auto pb-6">
       {/* page header */}
       <ModernTeamHeader />
 
       {/* table container */}
-      <div className="w-full overflow-x-auto whitespace-nowrap border rounded-sm">
-        {/* table */}
-        <div className="inline-block min-w-full">
+      <div className="w-full overflow-x-auto border rounded-sm">
+        <table className="min-w-full divide-y divide-gray-200">
           {/* table header */}
-          <div className="flex text-xs font-medium font-inter h-10 tracking-wider bg-gray-200/25">
-            {[
-              "EMPLOYEE ID",
-              "NAME",
-              "POSITION",
-              "DEPARTMENT",
-              "CONTACT",
-              "HIRE DATE",
-              "GENDER",
-              "STATUS",
-              "ACTIONS",
-            ].map((header, index) => (
-              <div
-                key={index}
-                className="px-6 h-full hover:bg-gray-200/40 flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth(header, teamMembers, index)}px`,
-                }}
-              >
-                {header}
-              </div>
-            ))}
-          </div>
+          <thead className="bg-gray-200/25">
+            <tr className="text-xs font-medium font-inter text-black/70 h-10 tracking-wider">
+              <th className="px-6 py-3 text-left whitespace-nowrap">EMPLOYEE ID</th>
+              <th className="px-6 py-3 text-left min-w-[150px]">NAME</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">POSITION</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">DEPARTMENT</th>
+              <th className="px-6 py-3 text-left min-w-[180px]">CONTACT</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">HIRE DATE</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">GENDER</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">STATUS</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">ACTIONS</th>
+            </tr>
+          </thead>
 
-          {/* table content */}
-          {teamMembers.map((member, rowIndex) => (
-            <div
-              key={rowIndex}
-              className="flex text-xs font-normal text-gray-600 h-10 border-t"
-            >
-              <div
-                className="px-6 h-full flex items-center text-blue-600 flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("EMPLOYEE ID", teamMembers, 0)}px`,
-                }}
-              >
-                {member.id}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("NAME", teamMembers, 1)}px`,
-                }}
-              >
-                {member.name}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("POSITION", teamMembers, 2)}px`,
-                }}
-              >
-                {member.position}
-              </div>
-              <div
-                className="px-6 h-full flex items-center gap-2 flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("DEPARTMENT", teamMembers, 3)}px`,
-                }}
-              >
-                {member.department}
-              </div>
-              <div
-                className="px-6 h-full flex flex-col justify-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("CONTACT", teamMembers, 4)}px`,
-                }}
-              >
-                <div className="flex items-center gap-1">
-                  <FaPhone className="text-gray-400 text-xs" />
-                  <span>{member.phone}</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <FaEnvelope className="text-gray-400 text-xs" />
-                  <span>{member.email}</span>
-                </div>
-              </div>
-              <div
-                className="px-6 h-full flex items-center gap-1 flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("HIRE DATE", teamMembers, 5)}px`,
-                }}
-              >
-                <FaCalendarAlt className="text-gray-400 text-xs" />
-                {member.hireDate}
-              </div>
-              <div
-                className="px-6 h-full flex items-center gap-1 flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("GENDER", teamMembers, 6)}px`,
-                }}
-              >
-                <FaVenusMars className="text-gray-400 text-xs" />
-                {member.gender}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("STATUS", teamMembers, 7)}px`,
-                }}
-              >
-                <div
-                  className={`flex items-center px-2 py-1 gap-1 rounded-xl ${member.status.color} ${member.status.bg}`}
-                >
-                  {member.status.name}
-                </div>
-              </div>
-              <div
-                className="px-6 h-full flex items-center gap-3 flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("ACTIONS", teamMembers, 8)}px`,
-                }}
-              >
-                <FaEye className="cursor-pointer text-amber-500" />
-                <LuPencilLine className="cursor-pointer text-green-500" />
-                <MdDelete className="cursor-pointer text-red-500" />
-              </div>
-            </div>
-          ))}
-        </div>
+          {/* table body */}
+          <tbody className="bg-white divide-y divide-gray-200">
+            {teamMembers.map((member, rowIndex) => (
+              <tr key={rowIndex} className="text-xs font-normal text-gray-600 h-10">
+                <td className="px-6 py-3 whitespace-nowrap text-blue-600">
+                  {member.id}
+                </td>
+                <td className="px-6 py-3 min-w-[150px]">
+                  {member.name}
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  {member.position}
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  {member.department}
+                </td>
+                <td className="px-6 py-3 min-w-[180px]">
+                  <div className="flex flex-col">
+                    <div className="flex items-center gap-1">
+                      <FaPhone className="text-gray-400 text-xs" />
+                      <span>{member.phone}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <FaEnvelope className="text-gray-400 text-xs" />
+                      <span>{member.email}</span>
+                    </div>
+                  </div>
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  <div className="flex items-center gap-1">
+                    <FaCalendarAlt className="text-gray-400 text-xs" />
+                    {member.hireDate}
+                  </div>
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  <div className="flex items-center gap-1">
+                    <FaVenusMars className="text-gray-400 text-xs" />
+                    {member.gender}
+                  </div>
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  <div
+                    className={`flex items-center px-2 py-1 gap-1 rounded-xl ${member.status.color} ${member.status.bg}`}
+                  >
+                    {member.status.name}
+                  </div>
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap">
+                  <div className="flex items-center gap-3">
+                    <FaEye className="cursor-pointer text-amber-500" />
+                    <LuPencilLine className="cursor-pointer text-green-500" />
+                    <MdDelete className="cursor-pointer text-red-500" />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-      {/* ---------- */}
 
       <Pagination
         currentPage={currentPage}
@@ -351,52 +301,5 @@ const Team = () => {
     </div>
   );
 };
-
-// Helper function to calculate column width based on content
-function getColumnWidth(header, data, columnIndex) {
-  // Base width for the header text
-  const headerWidth = header.length * 8 + 32; // 8px per character + padding
-
-  // Find the widest content in this column
-  let maxContentWidth = 0;
-  data.forEach((item) => {
-    let content = "";
-    switch (columnIndex) {
-      case 0:
-        content = item.id;
-        break;
-      case 1:
-        content = item.name;
-        break;
-      case 2:
-        content = item.position;
-        break;
-      case 3:
-        content = item.department;
-        break;
-      case 4:
-        content = item.phone + item.email;
-        break;
-      case 5:
-        content = item.hireDate;
-        break;
-      case 6:
-        content = item.gender;
-        break;
-      case 7:
-        content = item.status.name;
-        break;
-      case 8:
-        content = "Actions";
-        break;
-    }
-
-    const contentWidth = content.toString().length * 8 + 32;
-    if (contentWidth > maxContentWidth) maxContentWidth = contentWidth;
-  });
-
-  // Return the larger of header width or max content width
-  return Math.max(headerWidth, maxContentWidth, 120); // Minimum width of 120px
-}
 
 export default Team;

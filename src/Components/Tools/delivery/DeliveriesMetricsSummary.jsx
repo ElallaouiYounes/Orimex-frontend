@@ -9,24 +9,66 @@ const DeliveriesMetricsSummary = ({ deliveries }) => {
   ).length;
 
   const metrics = [
-    { title: 'Total Deliveries', value: totalDeliveries, change: '+15%' },
-    { title: 'Completed', value: completedDeliveries, change: '+8%' },
-    { title: 'In Transit', value: inTransitDeliveries, change: '+5%' },
-    { title: 'Delayed', value: delayedDeliveries, change: '+2%' },
+    { 
+      title: 'Total Deliveries', 
+      value: totalDeliveries, 
+      change: '+15%',
+      bgColor: 'bg-blue-50',
+      textColor: 'text-blue-600',
+      borderColor: 'border-blue-100'
+    },
+    { 
+      title: 'Completed', 
+      value: completedDeliveries, 
+      change: '+8%',
+      bgColor: 'bg-green-50',
+      textColor: 'text-green-600',
+      borderColor: 'border-green-100'
+    },
+    { 
+      title: 'In Transit', 
+      value: inTransitDeliveries, 
+      change: '+5%',
+      bgColor: 'bg-purple-50',
+      textColor: 'text-purple-600',
+      borderColor: 'border-purple-100'
+    },
+    { 
+      title: 'Delayed', 
+      value: delayedDeliveries, 
+      change: '+2%',
+      bgColor: 'bg-amber-50',
+      textColor: 'text-amber-600',
+      borderColor: 'border-amber-100'
+    },
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       {metrics.map((metric, index) => (
-        <div key={index} className="bg-white p-4 rounded-lg shadow-sm">
-          <p className="text-sm text-gray-500">{metric.title}</p>
-          <div className="flex items-end justify-between mt-2">
-            <p className="text-2xl font-semibold">{metric.value}</p>
-            <span className={`text-xs px-2 py-1 rounded-full ${
-              metric.change.startsWith('+') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-            }`}>
+        <div 
+          key={index} 
+          className={`${metric.bgColor} p-5 rounded-xl border ${metric.borderColor} shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1`}
+        >
+          <div className="flex items-start justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-500 mb-1">{metric.title}</p>
+              <p className={`text-3xl font-bold ${metric.textColor}`}>{metric.value}</p>
+            </div>
+            <span className={`text-xs font-semibold px-2 py-1 rounded-full ${metric.change.startsWith('+') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
               {metric.change}
             </span>
+          </div>
+          
+          {/* Progress indicator (optional) */}
+          <div className="mt-4">
+            <div className="w-full bg-gray-200 rounded-full h-1.5">
+              <div 
+                className={`h-1.5 rounded-full ${metric.textColor.replace('text', 'bg')}`}
+                style={{ width: `${(metric.value / totalDeliveries) * 100}%` }}
+              ></div>
+            </div>
+            <p className="text-xs text-gray-500 mt-1">{Math.round((metric.value / totalDeliveries) * 100)}% of total</p>
           </div>
         </div>
       ))}

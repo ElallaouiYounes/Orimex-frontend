@@ -249,170 +249,96 @@ const Delivery = () => {
       <ModernDeliveriesHeader />
 
       {/* table container */}
-      <div className="w-full overflow-x-auto whitespace-nowrap border rounded-sm">
-        {/* table */}
-        <div className="inline-block min-w-full">
+      <div className="w-full overflow-x-auto border rounded-sm">
+        <table className="min-w-full divide-y divide-gray-200">
           {/* table header */}
-          <div className="flex text-xs font-medium font-inter h-10 tracking-wider bg-gray-200/25">
-            {[
-              "DELIVERY ID",
-              "ORDER ID",
-              "CUSTOMER",
-              "DRIVER",
-              "VEHICLE",
-              "START DATE",
-              "EST. ARRIVAL",
-              "ROUTE",
-              "STATUS",
-              "CONTACT",
-              "ACTIONS",
-            ].map((header, index) => (
-              <div
-                key={index}
-                className="px-6 h-full hover:bg-gray-200/40 flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth(header, fakeDeliveries, index)}px`,
-                }}
-              >
-                {header}
-              </div>
-            ))}
-          </div>
+          <thead className="bg-gray-200/25">
+            <tr className="text-xs font-medium font-inter text-black/70 h-10 tracking-wider">
+              <th className="px-6 py-3 text-left whitespace-nowrap">DELIVERY ID</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">ORDER ID</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">CUSTOMER</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">DRIVER</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">VEHICLE</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">START DATE</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">EST. ARRIVAL</th>
+              <th className="px-6 py-3 text-left min-w-[300px]">ROUTE</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">STATUS</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">CONTACT</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">ACTIONS</th>
+            </tr>
+          </thead>
 
-          {/* table content */}
-          {fakeDeliveries.map((item, rowIndex) => (
-            <div
-              key={rowIndex}
-              className="flex text-xs font-normal text-gray-600 h-20 border-t"
-            >
-              <div
-                className="px-6 h-full flex items-center text-blue-600 flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth(
-                    "DELIVERY ID",
-                    fakeDeliveries,
-                    0
-                  )}px`,
-                }}
-              >
-                {item.deliveryId}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("ORDER ID", fakeDeliveries, 1)}px`,
-                }}
-              >
-                {item.orderId}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("CUSTOMER", fakeDeliveries, 2)}px`,
-                }}
-              >
-                {item.customerName}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("DRIVER", fakeDeliveries, 3)}px`,
-                }}
-              >
-                {item.driver}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("VEHICLE", fakeDeliveries, 4)}px`,
-                }}
-              >
-                {item.vehicle}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("START DATE", fakeDeliveries, 5)}px`,
-                }}
-              >
-                {item.startDate}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth(
-                    "EST. ARRIVAL",
-                    fakeDeliveries,
-                    6
-                  )}px`,
-                }}
-              >
-                {item.estimatedArrival}
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("ROUTE", fakeDeliveries, 7)}px`,
-                }}
-              >
-                <div className="flex flex-col w-full">
-                  <div className="flex items-center gap-1 text-xs">
-                    <FaMapMarkerAlt className="text-red-500" />
-                    <span className="font-medium">From:</span> {item.route.from}
+          {/* table body */}
+          <tbody className="bg-white divide-y divide-gray-200">
+            {fakeDeliveries.map((item, rowIndex) => (
+              <tr key={rowIndex} className="text-xs font-normal text-gray-600 h-20">
+                <td className="px-6 py-4 whitespace-nowrap text-blue-600">
+                  {item.deliveryId}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {item.orderId}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {item.customerName}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {item.driver}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {item.vehicle}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {item.startDate}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {item.estimatedArrival}
+                </td>
+                <td className="px-6 py-4 min-w-[500px]">
+                  <div className="flex flex-col w-full">
+                    <div className="flex items-center gap-1 text-xs">
+                      <FaMapMarkerAlt className="text-red-500" />
+                      <span className="font-medium">From:</span> {item.route.from}
+                    </div>
+                    <div className="flex items-center gap-1 text-xs">
+                      <FaRoute className="text-blue-500" />
+                      <span className="font-medium">Current:</span>{" "}
+                      {item.route.current}
+                    </div>
+                    <div className="flex items-center gap-1 text-xs">
+                      <FaMapMarkerAlt className="text-green-500" />
+                      <span className="font-medium">To:</span> {item.route.to}
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-1.5 mt-1">
+                      <div
+                        className="bg-blue-600 h-1.5 rounded-full"
+                        style={{ width: `${item.route.progress}%` }}
+                      ></div>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1 text-xs">
-                    <FaRoute className="text-blue-500" />
-                    <span className="font-medium">Current:</span>{" "}
-                    {item.route.current}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div
+                    className={`flex items-center px-2 py-1 gap-1 rounded-xl ${item.status.color} ${item.status.bg}`}
+                  >
+                    <item.status.icon />
+                    {item.status.name}
                   </div>
-                  <div className="flex items-center gap-1 text-xs">
-                    <FaMapMarkerAlt className="text-green-500" />
-                    <span className="font-medium">To:</span> {item.route.to}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {item.contact}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="flex items-center gap-3">
+                    <FaEye className="cursor-pointer text-amber-500" />
+                    <LuPencilLine className="cursor-pointer text-green-500" />
+                    <MdDelete className="cursor-pointer text-red-500" />
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-1.5 mt-1">
-                    <div
-                      className="bg-blue-600 h-1.5 rounded-full"
-                      style={{ width: `${item.route.progress}%` }}
-                    ></div>
-                  </div>
-                </div>
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("STATUS", fakeDeliveries, 8)}px`,
-                }}
-              >
-                <div
-                  className={`flex items-center px-2 py-1 gap-1 rounded-xl ${item.status.color} ${item.status.bg}`}
-                >
-                  <item.status.icon />
-                  {item.status.name}
-                </div>
-              </div>
-              <div
-                className="px-6 h-full flex items-center flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("CONTACT", fakeDeliveries, 9)}px`,
-                }}
-              >
-                {item.contact}
-              </div>
-              <div
-                className="px-6 h-full flex items-center gap-3 flex-shrink-0"
-                style={{
-                  width: `${getColumnWidth("ACTIONS", fakeDeliveries, 10)}px`,
-                }}
-              >
-                <FaEye className="cursor-pointer text-amber-500" />
-                <LuPencilLine className="cursor-pointer text-green-500" />
-                <MdDelete className="cursor-pointer text-red-500" />
-              </div>
-            </div>
-          ))}
-        </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-      {/* ---------- */}
 
       <Pagination
         currentPage={currentPage}
@@ -432,64 +358,5 @@ const Delivery = () => {
     </div>
   );
 };
-
-// Helper function to calculate column width based on content
-function getColumnWidth(header, data, columnIndex) {
-  // Base width for the header text
-  const headerWidth = header.length * 8 + 32; // 8px per character + padding
-
-  // Find the widest content in this column
-  let maxContentWidth = 0;
-  data.forEach((item) => {
-    let content = "";
-    switch (columnIndex) {
-      case 0:
-        content = item.deliveryId;
-        break;
-      case 1:
-        content = item.orderId;
-        break;
-      case 2:
-        content = item.customerName;
-        break;
-      case 3:
-        content = item.driver;
-        break;
-      case 4:
-        content = item.vehicle;
-        break;
-      case 5:
-        content = item.startDate;
-        break;
-      case 6:
-        content = item.estimatedArrival;
-        break;
-      case 7:
-        content =
-          "From: " +
-          item.route.from +
-          " Current: " +
-          item.route.current +
-          " To: " +
-          item.route.to;
-        break;
-      case 8:
-        content = item.status.name;
-        break;
-      case 9:
-        content = item.contact;
-        break;
-      case 10:
-        content = "Actions";
-        break;
-    }
-
-    const contentWidth = content.toString().length * 8 + 32;
-    if (contentWidth > maxContentWidth) maxContentWidth = contentWidth;
-  });
-
-  // Return the larger of header width or max content width
-  return Math.max(headerWidth, maxContentWidth, 120); // Minimum width of 120px
-}
 
 export default Delivery;

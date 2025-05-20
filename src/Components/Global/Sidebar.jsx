@@ -19,8 +19,7 @@ import { logout } from "../../Store/Reducers/Auth/authSlice";
 
 const Sidebar = () => {
   const isOpen = useSelector((state) => state.nav.isOpen);
-  // const { user } = useSelector((state) => state.auth);
-  const user = {};
+  const { user } = useSelector((state) => state.auth);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -71,9 +70,8 @@ const Sidebar = () => {
       }`}
     >
       {/* LOGO */}
-      <div className="flex items-center py-5 border-b border-gray-100 px-4 gap-1 font-work font-semibold text-lg">
-        <img src="./loggo.png" className="w-10" alt="" />
-        <h1>ORIMEX S.A</h1>
+      <div className="flex items-center py-5 border-b border-gray-100 px-4 gap-1 font-work font-semibold text-lg mx-auto">
+        <img src="./logo.png" className="w-20" alt="" />
       </div>
 
       {/* MENU */}
@@ -147,7 +145,7 @@ const Sidebar = () => {
           </div>
           <div className="flex flex-col">
             <span className="text-xs font-medium text-gray-800 whitespace-nowrap">
-              {user.fullname}
+              {user.fullname || 'EL ALLAOUI YOUNES'}
             </span>
             <span className="text-xs text-gray-500 whitespace-nowrap">
               {user.email}
