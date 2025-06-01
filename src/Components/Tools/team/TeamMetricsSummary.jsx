@@ -3,8 +3,8 @@ import { FiUsers, FiUserCheck, FiUser, FiLayers } from "react-icons/fi";
 
 const TeamMetricsSummary = ({ team }) => {
   const totalEmployees = team.length;
-  const activeEmployees = team.filter(e => e.status.name === "Active").length;
-  const femaleEmployees = team.filter(e => e.gender === "Female").length;
+  const activeEmployees = team.filter(e => e.status === "working").length;
+  const femaleEmployees = team.filter(e => e.gender === "female").length;
   const departments = [...new Set(team.map(member => member.department))];
 
   const metrics = [

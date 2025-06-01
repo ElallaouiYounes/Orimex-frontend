@@ -4,6 +4,8 @@ import { ClipboardList } from "lucide-react";
 import { GrStorage } from "react-icons/gr";
 import { FiUsers } from "react-icons/fi";
 import { IoTrendingUp, IoTrendingDown } from "react-icons/io5";
+import OrimexEarningsChart from "../Tools/overview/OrimexEarningsChart";
+import TopCustomers from "../Tools/overview/TopCustomers";
 
 const Overview = () => {
   const cards = [
@@ -16,9 +18,9 @@ const Overview = () => {
       rate: 0.48,
       rateIcon: IoTrendingUp,
       rateColor: "text-green-600",
-      Bg:"bg-blue-50",
-      HovBg:"bg-blue-100",
-      iconBg:"bg-green-50"
+      Bg: "bg-blue-50",
+      HovBg: "bg-blue-100",
+      iconBg: "bg-green-50",
     },
     {
       id: 2,
@@ -29,9 +31,9 @@ const Overview = () => {
       rate: 0.11,
       rateIcon: IoTrendingUp,
       rateColor: "text-green-600",
-      Bg:"bg-purple-50",
-      HovBg:"bg-purple-100",
-      iconBg:"bg-green-50"
+      Bg: "bg-purple-50",
+      HovBg: "bg-purple-100",
+      iconBg: "bg-green-50",
     },
     {
       id: 3,
@@ -42,9 +44,9 @@ const Overview = () => {
       rate: 23.13,
       rateIcon: IoTrendingDown,
       rateColor: "text-red-600",
-      Bg:"bg-amber-50",
-      HovBg:"bg-amber-100",
-      iconBg:"bg-red-50"
+      Bg: "bg-amber-50",
+      HovBg: "bg-amber-100",
+      iconBg: "bg-red-50",
     },
     {
       id: 4,
@@ -55,9 +57,9 @@ const Overview = () => {
       rate: 0.48,
       rateIcon: IoTrendingUp,
       rateColor: "text-green-600",
-      Bg:"bg-emerald-50",
-      HovBg:"bg-emerald-100",
-      iconBg:"bg-green-50"
+      Bg: "bg-emerald-50",
+      HovBg: "bg-emerald-100",
+      iconBg: "bg-green-50",
     },
   ];
 
@@ -67,10 +69,20 @@ const Overview = () => {
   const year = date.getFullYear();
 
   const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
-  
+
   const currentMonthName = monthNames[month];
 
   return (
@@ -78,36 +90,50 @@ const Overview = () => {
       {/* Cards */}
       <div className="w-full h-32 flex items-center gap-4">
         {/* 1st Card - Total Sales */}
-        {cards.map((item) =>
-        <div className="h-full w-[24.1%] rounded-lg bg-white border border-gray-100 shadow-xs hover:shadow-sm transition-shadow flex flex-col px-4 py-3 relative group"
-        key={item.id}
-        >
-          <div className="w-full h-[33.33%] flex justify-between items-start">
-            <p className="text-lg font-work font-medium text-gray-500">
-              {item.name}
-            </p>
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center border border-gray-200 ${item.Bg} group-hover:${item.HovBg} transition-colors absolute right-3 top-3`}>
-              <item.icon
-                size={20}
-                className={`opacity-90 ${item.Color}`}
-              />
+        {cards.map((item) => (
+          <div
+            className="h-full w-[24.1%] rounded-lg bg-white border border-gray-100 shadow-xs hover:shadow-sm transition-shadow flex flex-col px-4 py-3 relative group"
+            key={item.id}
+          >
+            <div className="w-full h-[33.33%] flex justify-between items-start">
+              <p className="text-lg font-work font-medium text-gray-500">
+                {item.name}
+              </p>
+              <div
+                className={`w-10 h-10 rounded-full flex items-center justify-center border border-gray-200 ${item.Bg} group-hover:${item.HovBg} transition-colors absolute right-3 top-3`}
+              >
+                <item.icon size={20} className={`opacity-90 ${item.Color}`} />
+              </div>
+            </div>
+            <div className="w-full h-[33.33%] flex items-center">
+              <p className="text-lg font-semibold text-gray-800 font-work">
+                {item.value}
+              </p>
+            </div>
+            <div className="w-full h-[33.33%] flex items-center gap-3">
+              <div
+                className={`flex items-center gap-1 px-2 py-1 ${item.rateColor} ${item.iconBg} rounded-full`}
+              >
+                <item.rateIcon size={14} />
+                <p className="text-xs font-medium">{item.rate}%</p>
+              </div>
+              <p className="text-gray-400 font-work text-xs">
+                Data per {day} {currentMonthName} {year}
+              </p>
             </div>
           </div>
-          <div className="w-full h-[33.33%] flex items-center">
-            <p className="text-lg font-semibold text-gray-800 font-work">
-              {item.value}
-            </p>
-          </div>
-          <div className="w-full h-[33.33%] flex items-center gap-3">
-            <div className={`flex items-center gap-1 px-2 py-1 ${item.rateColor} ${item.iconBg} rounded-full`}>
-              <item.rateIcon size={14} />
-              <p className="text-xs font-medium">{item.rate}%</p>
-            </div>
-            <p className="text-gray-400 font-work text-xs">
-              Data per {day} {currentMonthName} {year}
-            </p>
-          </div>
-        </div>)}
+        ))}
+      </div>
+
+      <div className="w-full flex gap-6 mt-6">
+        {/* First */}
+        <div className="w-[65%] shadow-sm rounded-lg bg-white">
+          <OrimexEarningsChart />
+        </div>
+        {/* Second  */}
+        <div className="w-[34%] shadow-sm rounded-lg">
+          <TopCustomers />
+        </div>
       </div>
     </div>
   );

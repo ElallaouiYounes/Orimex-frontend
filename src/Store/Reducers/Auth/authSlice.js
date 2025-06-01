@@ -1,32 +1,68 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../../api/Api";
+import { fetchProducts } from "../PagesReducers/productSlice";
+import { fetchInventory } from "../PagesReducers/inventorySlice";
+import { fetchTeam } from "../PagesReducers/teamSlice";
 
-export const login = createAsyncThunk('auth/login', async (credentials, thunkAPI) => {
+// LOGIN
+export const login = createAsyncThunk(
+  "auth/login",
+  async (credentials, thunkAPI) => {
+    try {
+      await api.get("/sanctum/csrf-cookie"); // important for Sanctum
+      const response = await api.post("/api/login", credentials);
+
+      // fetch data after login
+      thunkAPI.dispatch(fetchProducts());
+      thunkAPI.dispatch(fetchInventory());
+      thunkAPI.dispatch(fetchTeam());
+
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data || { message: "Login failed" }
+      );
+    }
+  }
+);
+
+// LOGOUT
+export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
-    await api.get('/sanctum/csrf-cookie');
-    const response = await api.post('/api/login', credentials);
-    return response.data;
+    await api.post("/api/logout"); // sanctum logout
+    return true;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
+    return thunkAPI.rejectWithValue("Logout failed");
   }
 });
 
-export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
-  try {
-    await api.get('/sanctum/csrf-cookie'); // ensure CSRF token is set
-    await api.post('/api/logout');
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response?.data || "Logout failed");
+// CHECK AUTH STATUS
+export const checkAuth = createAsyncThunk(
+  "auth/checkAuth",
+  async (_, thunkAPI) => {
+    try {
+      const response = await api.get("/api/user");
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data || "Not authenticated"
+      );
+    }
   }
-});
-
+);
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: { user: null, loading: false, error: null, isLogged: false },
+  initialState: {
+    user: null,
+    loading: false,
+    error: null,
+    isLogged: false,
+  },
   reducers: {},
   extraReducers: (builder) => {
     builder
+      // LOGIN
       .addCase(login.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -39,18 +75,34 @@ const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload?.message || "Login failed";
         state.isLogged = false;
       })
+
+      // LOGOUT
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
         state.isLogged = false;
-        localStorage.removeItem('token'); 
+        state.error = null;
       })
       .addCase(logout.rejected, (state, action) => {
         state.error = action.payload;
+      })
+
+      // CHECK AUTH
+      .addCase(checkAuth.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(checkAuth.fulfilled, (state, action) => {
         state.loading = false;
-        state.isLogged = true; // still logged in
+        state.user = action.payload;
+        state.isLogged = true;
+        state.error = null;
+      })
+      .addCase(checkAuth.rejected, (state) => {
+        state.loading = false;
+        state.user = null;
+        state.isLogged = false;
       });
   },
 });

@@ -145,10 +145,10 @@ const Sidebar = () => {
           </div>
           <div className="flex flex-col">
             <span className="text-xs font-medium text-gray-800 whitespace-nowrap">
-              {user.fullname || 'EL ALLAOUI YOUNES'}
+              {user.employee.name}
             </span>
             <span className="text-xs text-gray-500 whitespace-nowrap">
-              {user.email}
+              {user.employee.email}
             </span>
           </div>
         </div>

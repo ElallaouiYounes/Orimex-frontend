@@ -13,194 +13,14 @@ import TeamMetricsSummary from "../Tools/team/TeamMetricsSummary";
 import DepartmentDistributionChart from "../Tools/team/DepartmentDistributionChart";
 import EmployeeStatusChart from "../Tools/team/EmployeeStatusChart";
 import Pagination from "../Global/Pagination";
+import { useSelector } from "react-redux";
 
 const Team = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
-  const teamMembers = [
-    {
-      id: "EMP-2024-001",
-      name: "Mohamed El Amrani",
-      position: "CEO",
-      department: "Management",
-      email: "m.elamrani@company.com",
-      phone: "+212 600 112 233",
-      hireDate: "2018-06-15",
-      gender: "Male",
-      status: {
-        name: "Active",
-        color: "text-green-500",
-        bg: "bg-green-100",
-      },
-    },
-    {
-      id: "EMP-2024-002",
-      name: "Fatima Zahra Belhaj",
-      position: "HR Manager",
-      department: "HR",
-      email: "fz.belhaj@company.com",
-      phone: "+212 700 223 344",
-      hireDate: "2019-03-10",
-      gender: "Female",
-      status: {
-        name: "Active",
-        color: "text-green-500",
-        bg: "bg-green-100",
-      },
-    },
-    {
-      id: "EMP-2024-003",
-      name: "Karim Touimi",
-      position: "Marketing Director",
-      department: "Marketing",
-      email: "k.touimi@company.com",
-      phone: "+212 650 334 455",
-      hireDate: "2020-01-20",
-      gender: "Male",
-      status: {
-        name: "Active",
-        color: "text-green-500",
-        bg: "bg-green-100",
-      },
-    },
-    {
-      id: "EMP-2024-004",
-      name: "Samira Chraibi",
-      position: "Sales Manager",
-      department: "Sales",
-      email: "s.chraibi@company.com",
-      phone: "+212 610 445 566",
-      hireDate: "2019-11-05",
-      gender: "Female",
-      status: {
-        name: "On Leave",
-        color: "text-amber-500",
-        bg: "bg-amber-100",
-      },
-    },
-    {
-      id: "EMP-2024-005",
-      name: "Youssef Bennis",
-      position: "Lead Developer",
-      department: "Technology",
-      email: "y.bennis@company.com",
-      phone: "+212 660 556 677",
-      hireDate: "2020-05-15",
-      gender: "Male",
-      status: {
-        name: "Active",
-        color: "text-green-500",
-        bg: "bg-green-100",
-      },
-    },
-    {
-      id: "EMP-2024-006",
-      name: "Leila El Fassi",
-      position: "UX Designer",
-      department: "Technology",
-      email: "l.elfassi@company.com",
-      phone: "+212 700 667 788",
-      hireDate: "2021-02-28",
-      gender: "Female",
-      status: {
-        name: "Active",
-        color: "text-green-500",
-        bg: "bg-green-100",
-      },
-    },
-    {
-      id: "EMP-2024-007",
-      name: "Hassan Amrani",
-      position: "Lead Driver",
-      department: "Logistics",
-      email: "h.amrani@company.com",
-      phone: "+212 680 778 899",
-      hireDate: "2019-08-12",
-      gender: "Male",
-      status: {
-        name: "Active",
-        color: "text-green-500",
-        bg: "bg-green-100",
-      },
-    },
-    {
-      id: "EMP-2024-008",
-      name: "Nadia Berrada",
-      position: "Security Supervisor",
-      department: "Security",
-      email: "n.berrada@company.com",
-      phone: "+212 690 889 900",
-      hireDate: "2020-07-22",
-      gender: "Female",
-      status: {
-        name: "Active",
-        color: "text-green-500",
-        bg: "bg-green-100",
-      },
-    },
-    {
-      id: "EMP-2024-009",
-      name: "Omar Zahra",
-      position: "CFO",
-      department: "Finance",
-      email: "o.zahra@company.com",
-      phone: "+212 600 990 011",
-      hireDate: "2018-09-30",
-      gender: "Male",
-      status: {
-        name: "Active",
-        color: "text-green-500",
-        bg: "bg-green-100",
-      },
-    },
-    {
-      id: "EMP-2024-010",
-      name: "Amina El Mansouri",
-      position: "Accountant",
-      department: "Finance",
-      email: "a.elmansouri@company.com",
-      phone: "+212 710 001 122",
-      hireDate: "2021-04-18",
-      gender: "Female",
-      status: {
-        name: "Probation",
-        color: "text-blue-500",
-        bg: "bg-blue-100",
-      },
-    },
-    {
-      id: "EMP-2024-011",
-      name: "Khalid Touimi",
-      position: "IT Support",
-      department: "Technology",
-      email: "k.touimi@company.com",
-      phone: "+212 650 112 233",
-      hireDate: "2022-01-05",
-      gender: "Male",
-      status: {
-        name: "Active",
-        color: "text-green-500",
-        bg: "bg-green-100",
-      },
-    },
-    {
-      id: "EMP-2024-012",
-      name: "Yasmina Chraibi",
-      position: "Sales Representative",
-      department: "Sales",
-      email: "y.chraibi@company.com",
-      phone: "+212 610 223 344",
-      hireDate: "2021-11-15",
-      gender: "Female",
-      status: {
-        name: "Inactive",
-        color: "text-red-500",
-        bg: "bg-red-100",
-      },
-    },
-  ];
+  const teamMembers = useSelector((state) => state.team.teamMembers);
 
-return (
+  return (
     <div className="w-full h-[calc(100vh-180px)] overflow-y-auto pb-6">
       {/* page header */}
       <ModernTeamHeader />
@@ -211,12 +31,20 @@ return (
           {/* table header */}
           <thead className="bg-gray-200/25">
             <tr className="text-xs font-medium font-inter text-black/70 h-10 tracking-wider">
-              <th className="px-6 py-3 text-left whitespace-nowrap">EMPLOYEE ID</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">
+                EMPLOYEE ID
+              </th>
               <th className="px-6 py-3 text-left min-w-[150px]">NAME</th>
-              <th className="px-6 py-3 text-left whitespace-nowrap">POSITION</th>
-              <th className="px-6 py-3 text-left whitespace-nowrap">DEPARTMENT</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">
+                POSITION
+              </th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">
+                DEPARTMENT
+              </th>
               <th className="px-6 py-3 text-left min-w-[180px]">CONTACT</th>
-              <th className="px-6 py-3 text-left whitespace-nowrap">HIRE DATE</th>
+              <th className="px-6 py-3 text-left whitespace-nowrap">
+                HIRE DATE
+              </th>
               <th className="px-6 py-3 text-left whitespace-nowrap">GENDER</th>
               <th className="px-6 py-3 text-left whitespace-nowrap">STATUS</th>
               <th className="px-6 py-3 text-left whitespace-nowrap">ACTIONS</th>
@@ -226,15 +54,16 @@ return (
           {/* table body */}
           <tbody className="bg-white divide-y divide-gray-200">
             {teamMembers.map((member, rowIndex) => (
-              <tr key={rowIndex} className="text-xs font-normal text-gray-600 h-10">
-                <td className="px-6 py-3 whitespace-nowrap text-blue-600">
+              <tr
+                key={rowIndex}
+                className="text-xs font-normal text-gray-600 h-10"
+              >
+                <td className="px-6 py-3 whitespace-nowrap text-blue-600 font-semibold">
                   {member.id}
                 </td>
-                <td className="px-6 py-3 min-w-[150px]">
-                  {member.name}
-                </td>
+                <td className="px-6 py-3 min-w-[150px]">{member.name}</td>
                 <td className="px-6 py-3 whitespace-nowrap">
-                  {member.position}
+                  {member.role}
                 </td>
                 <td className="px-6 py-3 whitespace-nowrap">
                   {member.department}
@@ -254,7 +83,7 @@ return (
                 <td className="px-6 py-3 whitespace-nowrap">
                   <div className="flex items-center gap-1">
                     <FaCalendarAlt className="text-gray-400 text-xs" />
-                    {member.hireDate}
+                    {member.hire_date}
                   </div>
                 </td>
                 <td className="px-6 py-3 whitespace-nowrap">
@@ -265,9 +94,9 @@ return (
                 </td>
                 <td className="px-6 py-3 whitespace-nowrap">
                   <div
-                    className={`flex items-center px-2 py-1 gap-1 rounded-xl ${member.status.color} ${member.status.bg}`}
+                    className={`flex items-center px-2 py-1 gap-1 rounded-xl ${member.status === "working" ? `text-green-500 bg-green-100` : member.status === "vacation" ? `text-amber-500 bg-amber-100` : `text-red-500 bg-red-100`}`}
                   >
-                    {member.status.name}
+                    {member.status}
                   </div>
                 </td>
                 <td className="px-6 py-3 whitespace-nowrap">

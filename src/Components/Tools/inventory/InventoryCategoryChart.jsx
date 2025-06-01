@@ -6,7 +6,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const InventoryCategoryChart = ({ inventory }) => {
   const categoryCounts = inventory.reduce((acc, item) => {
-    acc[item.category] = (acc[item.category] || 0) + 1;
+    acc[item.product.category] = (acc[item.product.category] || 0) + 1;
     return acc;
   }, {});
 

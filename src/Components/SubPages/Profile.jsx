@@ -14,8 +14,10 @@ import { MdPassword } from "react-icons/md";
 import { RiTeamFill } from "react-icons/ri";
 import UserActivityChart from "../Tools/profile/UserActivityChart";
 import RecentActivities from "../Tools/profile/RecentActivities";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
+    const user1 = useSelector((state) => state.auth.user);
   // Sample user data
   const user = {
     name: "Mohamed El Amrani",
@@ -40,12 +42,12 @@ const Profile = () => {
         {/* Profile Card */}
         <div className="w-full md:w-1/3 bg-white rounded-lg shadow-sm p-6">
           <div className="flex flex-col items-center mb-6">
-            <div className="w-32 h-32 rounded-full bg-blue-100 flex items-center justify-center mb-4">
-              <FaUser className="text-blue-500 text-5xl" />
+            <div className="w-32 h-32 rounded-full bg-blue-100 flex items-center justify-center mb-4 bg-contain bg-center bg-no-repeat" style={{ backgroundImage: user1.employee.gender === "male" ? `url(./male.png)` : `url(./female.png)` }}>
+              {/* <FaUser className="text-blue-500 text-5xl" /> */}
             </div>
-            <h2 className="text-2xl font-bold text-gray-800">{user.name}</h2>
-            <p className="text-blue-600 font-medium">{user.position}</p>
-            <p className="text-gray-500 text-sm">{user.department}</p>
+            <h2 className="text-2xl font-bold text-gray-800">{user1.employee.name}</h2>
+            <p className="text-blue-600 font-medium">{user1.employee.role}</p>
+            <p className="text-gray-500 text-sm">{user1.employee.department}</p>
           </div>
 
           <div className="space-y-4">
@@ -55,7 +57,7 @@ const Profile = () => {
               </div>
               <div>
                 <p className="text-xs text-gray-500">Email</p>
-                <p className="text-sm font-medium">{user.email}</p>
+                <p className="text-sm font-medium">{user1.employee.email}</p>
               </div>
             </div>
 
@@ -65,7 +67,7 @@ const Profile = () => {
               </div>
               <div>
                 <p className="text-xs text-gray-500">Phone</p>
-                <p className="text-sm font-medium">{user.phone}</p>
+                <p className="text-sm font-medium">{user1.employee.phone}</p>
               </div>
             </div>
 
@@ -75,7 +77,7 @@ const Profile = () => {
               </div>
               <div>
                 <p className="text-xs text-gray-500">Employee ID</p>
-                <p className="text-sm font-medium">{user.employeeId}</p>
+                <p className="text-sm font-medium">{user1.employee.id}</p>
               </div>
             </div>
 
@@ -85,7 +87,7 @@ const Profile = () => {
               </div>
               <div>
                 <p className="text-xs text-gray-500">Hire Date</p>
-                <p className="text-sm font-medium">{user.hireDate}</p>
+                <p className="text-sm font-medium">{user1.employee.hire_date}</p>
               </div>
             </div>
 
@@ -95,17 +97,7 @@ const Profile = () => {
               </div>
               <div>
                 <p className="text-xs text-gray-500">Location</p>
-                <p className="text-sm font-medium">{user.location}</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-indigo-100 text-indigo-500">
-                <RiTeamFill />
-              </div>
-              <div>
-                <p className="text-xs text-gray-500">Team Members</p>
-                <p className="text-sm font-medium">{user.teamMembers}</p>
+                <p className="text-sm font-medium">Casablanca</p>
               </div>
             </div>
 
@@ -115,7 +107,7 @@ const Profile = () => {
               </div>
               <div>
                 <p className="text-xs text-gray-500">Status</p>
-                <p className="text-sm font-medium text-green-500">{user.status}</p>
+                <p className="text-sm font-medium text-green-500">{user1.employee.status}</p>
               </div>
             </div>
           </div>

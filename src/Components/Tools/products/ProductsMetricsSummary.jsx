@@ -1,15 +1,17 @@
 import React from "react";
-import { FiPackage, FiCheckCircle, FiXCircle, FiDollarSign } from "react-icons/fi";
+import { FiPackage, FiCheckCircle, FiAlertCircle, FiXCircle } from "react-icons/fi";
 import { TbChartLine } from "react-icons/tb";
 
 const ProductsMetricsSummary = ({ products }) => {
-  const totalProducts = products.length;
-  const inStockProducts = products.filter(p => p.status === "In Stock").length;
-  const outOfStockProducts = products.filter(p => p.status === "Out of Stock").length;
-  const totalStockValue = products.reduce((sum, p) => {
-    const price = parseFloat(p.price.replace(/[^0-9.]/g, ''));
-    return sum + (price * p.stock);
-  }, 0);
+  const totalProducts = products?.length || 0;
+  const inStockProducts = products?.filter(p => p.stock_status === "in-stock").length || 0;
+  const outOfStockProducts = products?.filter(p => p.stock_status === "out-of-stock").length || 0;
+  const lowStockProducts = products?.filter(p => p.stock_status === "low-stock").length || 0;
+  
+  const totalStockValue = products?.reduce((sum, product) => {
+    const price = parseFloat(product.price) || 0;
+    return sum + (price * (product.current_stock || 0));
+  }, 0) || 0;
 
   const metrics = [
     {
@@ -17,55 +19,75 @@ const ProductsMetricsSummary = ({ products }) => {
       value: totalProducts,
       change: "+8%",
       icon: FiPackage,
-      iconColor: "text-indigo-500",
-      bgColor: "bg-indigo-50",
-      textColor: "text-indigo-600",
-      borderColor: "border-indigo-100",
+      iconColor: "text-[#4285F4]",
+      bgColor: "bg-blue-50",
+      textColor: "text-blue-700",
+      borderColor: "border-blue-100",
+      trend: "up"
     },
     {
       title: "In Stock",
       value: inStockProducts,
       change: "+5%",
       icon: FiCheckCircle,
-      iconColor: "text-emerald-500",
-      bgColor: "bg-emerald-50",
-      textColor: "text-emerald-600",
-      borderColor: "border-emerald-100",
+      iconColor: "text-green-600",
+      bgColor: "bg-green-50",
+      textColor: "text-green-700",
+      borderColor: "border-green-100",
+      trend: "up"
+    },
+    {
+      title: "Low Stock",
+      value: lowStockProducts,
+      change: "+3%",
+      icon: FiAlertCircle,
+      iconColor: "text-amber-600",
+      bgColor: "bg-amber-50",
+      textColor: "text-amber-700",
+      borderColor: "border-amber-100",
+      trend: "up"
     },
     {
       title: "Out of Stock",
       value: outOfStockProducts,
       change: "+2%",
       icon: FiXCircle,
-      iconColor: "text-rose-500",
-      bgColor: "bg-rose-50",
-      textColor: "text-rose-600",
-      borderColor: "border-rose-100",
+      iconColor: "text-red-600",
+      bgColor: "bg-red-50",
+      textColor: "text-red-700",
+      borderColor: "border-red-100",
+      trend: "down"
     },
     {
-      title: "Inventory Value",
-      value: `${totalStockValue.toLocaleString()} MAD`,
+      title: "Products Value",
+      value: `${totalStockValue.toLocaleString('en-US', {
+        style: "decimal",
+        maximumFractionDigits: 0,
+      })} MAD`,
       change: "+12%",
       icon: TbChartLine,
-      iconColor: "text-amber-500",
-      bgColor: "bg-amber-50",
-      textColor: "text-amber-600",
-      borderColor: "border-amber-100",
+      iconColor: "text-purple-600",
+      bgColor: "bg-purple-50",
+      textColor: "text-purple-700",
+      borderColor: "border-purple-100",
+      trend: "up"
     },
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
       {metrics.map((metric, index) => (
         <div
           key={index}
-          className={`${metric.bgColor} p-5 rounded-xl border ${metric.borderColor} shadow-sm hover:shadow-md transition-all duration-300 group`}
+          className={`${metric.bgColor} p-2 rounded-lg border ${metric.borderColor} shadow-xs hover:shadow-sm transition-all duration-200 group hover:translate-y-[-2px]`}
         >
-          <div className="flex justify-between items-start mb-3">
-            <metric.icon size={25} className={`${metric.iconColor}`} />
+          <div className="flex justify-between items-start mb-2">
+            <div className={`py-2 rounded-lg ${metric.iconColor.replace('text', 'bg')} bg-opacity-20`}>
+              <metric.icon size={20} className={`${metric.iconColor}`} />
+            </div>
             <span
-              className={`text-xs font-medium px-2 py-1 rounded-full ${
-                metric.change.startsWith("+")
+              className={`text-xs font-semibold px-2 py-1 rounded-full ${
+                metric.trend === "up"
                   ? "bg-green-100 text-green-800"
                   : "bg-red-100 text-red-800"
               }`}
@@ -74,35 +96,37 @@ const ProductsMetricsSummary = ({ products }) => {
             </span>
           </div>
 
-          <h3 className="text-sm font-medium text-gray-500 mb-1">
+          <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
             {metric.title}
           </h3>
-          <p className={`text-2xl font-bold ${metric.textColor} mb-3`}>
+          <p className={`text-xl font-bold ${metric.textColor} mb-2`}>
             {metric.value}
           </p>
 
-          {/* Enhanced trend indicator */}
           <div className="flex items-center text-xs text-gray-500">
             <span
               className={`mr-1 ${
-                metric.change.startsWith("+")
-                  ? "text-green-500"
-                  : "text-red-500"
+                metric.trend === "up" ? "text-green-500" : "text-red-500"
               }`}
             >
-              {metric.change.startsWith("+") ? "↑" : "↓"}{" "}
-              {metric.change.replace("+", "")}
+              {metric.trend === "up" ? "↑" : "↓"}
             </span>
-            <span>vs last period</span>
+            <span className="text-gray-400">vs last quarter</span>
           </div>
 
-          {/* Optional: Add a subtle progress bar for visual interest */}
-          <div className="mt-2 w-full bg-gray-200 rounded-full h-1">
-            <div 
-              className={`h-1 rounded-full ${metric.textColor.replace('text', 'bg')}`}
-              style={{ width: `${Math.min(100, (metric.value / (index === 3 ? totalStockValue/10000 : totalProducts)) * 100)}%` }}
-            ></div>
-          </div>
+          {/* Progress bar for all metrics except Products Value */}
+          {index !== 4 && (
+            <div className="mt-3 w-full bg-gray-100 rounded-full h-1.5">
+              <div 
+                className={`h-full rounded-full ${metric.textColor.replace('text', 'bg')}`}
+                style={{ 
+                  width: `${Math.min(100, 
+                    (metric.value / (totalProducts || 1)) * 100
+                  )}%` 
+                }}
+              ></div>
+            </div>
+          )}
         </div>
       ))}
     </div>

@@ -258,15 +258,15 @@ const Navbar = () => {
               onClick={() => setShowProfileDropdown(!showProfileDropdown)}
             >
               <div
-                className="w-8 h-8 rounded-full bg-gray-300 dark:bg-gray-600 bg-center bg-cover border-2 border-gray-300 dark:border-gray-600 hover:border-primary transition-all duration-300"
-                style={{ backgroundImage: `url(./profile.png)` }}
+                className="w-8 h-8 rounded-full bg-gray-300 dark:bg-gray-600 bg-center bg-cover border border-gray-300 dark:border-gray-600 hover:border-primary transition-all duration-300"
+                style={{ backgroundImage: user.employee.gender === "male" ? `url(./male.png)` : `url(./female.png)` }}
               ></div>
               <div className="hidden lg:block">
                 <p className="text-sm font-medium capitalize">
-                  {user.fullname || 'EL ALLAOUI YOUNES'}
+                  {user.employee.name}
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  {user.role || 'Developer'}
+                  {user.employee.role}
                 </p>
               </div>
               <RiArrowDropDownLine
@@ -289,17 +289,17 @@ const Navbar = () => {
                   <div className="p-4 border-b dark:border-gray-700">
                     <div className="flex items-center gap-3">
                       <div
-                        className="w-10 h-10 rounded-full bg-gray-300 dark:bg-gray-600 bg-center bg-cover border-2 border-gray-300 dark:border-gray-600 hover:border-primary"
-                        style={{ backgroundImage: `url(./profile.png)` }}
+                        className="w-10 h-10 rounded-full bg-gray-300 dark:bg-gray-600 bg-center bg-cover border border-gray-300 dark:border-gray-600 hover:border-primary"
+                        style={{ backgroundImage: user.employee.gender === "male" ? `url(./male.png)` : `url(./female.png)` }}
                       ></div>
                       <div>
                         <p className="font-medium text-sm capitalize">
-                          {user.fullname || 'EL ALLAOUI YOUNES'}
+                          {user.employee.name}
                         </p>
                         <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                          {user.email.length > 15
-                            ? `${user.email.substring(0, 21)}...`
-                            : user.email}
+                          {user.employee.email.length > 15
+                            ? `${user.employee.email.substring(0, 21)}...`
+                            : user.employee.email}
                         </p>
                       </div>
                     </div>

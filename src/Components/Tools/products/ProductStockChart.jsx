@@ -23,7 +23,7 @@ ChartJS.register(
 const ProductStockChart = ({ products }) => {
   // Sort products by stock and take top 8
   const topProducts = [...products]
-    .sort((a, b) => b.stock - a.stock)
+    .sort((a, b) => b.current_stock - a.current_stock)
     .slice(0, 8);
 
   // Premium color gradient function
@@ -35,10 +35,10 @@ const ProductStockChart = ({ products }) => {
   };
 
   const data = {
-    labels: topProducts.map(p => p.productId),
+    labels: topProducts.map(p => p.id),
     datasets: [{
       label: 'Stock Quantity',
-      data: topProducts.map(p => p.stock),
+      data: topProducts.map(p => p.current_stock),
       backgroundColor: (context) => getGradient(context.chart.ctx),
       borderColor: 'rgba(59, 130, 246, 1)',
       borderWidth: 1,
@@ -58,7 +58,7 @@ const ProductStockChart = ({ products }) => {
           label: (context) => `${context.parsed.y} units`,
           afterLabel: (context) => {
             const product = topProducts[context.dataIndex];
-            return `${product.name}\n${product.category} • ${product.status}`;
+            return `${product.name}\n${product.category} • ${product.stock_status}`;
           }
         },
         displayColors: false,
@@ -108,7 +108,7 @@ const ProductStockChart = ({ products }) => {
           </p>
         </div>
         <div className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm font-medium">
-          Total: {topProducts.reduce((sum, p) => sum + p.stock, 0)} units
+          Total: {topProducts.reduce((sum, p) => sum + p.current_stock, 0)} units
         </div>
       </div>
 
@@ -119,18 +119,18 @@ const ProductStockChart = ({ products }) => {
       <div className="mt-6 flex flex-wrap gap-3">
         {topProducts.map((product, index) => (
           <motion.div
-            key={product.productId}
+            key={product.id}
             whileHover={{ y: -2 }}
             className="px-3 py-2 bg-gray-50 rounded-lg border border-gray-200"
           >
             <div className="flex items-center">
               <div className="w-2 h-2 rounded-full bg-blue-500 mr-2"></div>
               <span className="text-sm font-medium text-gray-700 truncate max-w-[120px]">
-                {product.productId}
+                {product.id}
               </span>
             </div>
             <p className="text-xs text-gray-500 mt-1">
-              {product.stock} units
+              {product.current_stock} units
             </p>
           </motion.div>
         ))}

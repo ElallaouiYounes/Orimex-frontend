@@ -6,7 +6,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
 
 const EmployeeStatusChart = ({ team }) => {
   const statusCounts = team.reduce((acc, member) => {
-    acc[member.status.name] = (acc[member.status.name] || 0) + 1;
+    acc[member.status] = (acc[member.status] || 0) + 1;
     return acc;
   }, {});
 

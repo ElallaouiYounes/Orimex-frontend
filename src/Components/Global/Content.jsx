@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 
 const Content = () => {
   const { isOpen } = useSelector((state) => state.nav);
+  const user = useSelector((state) => state.auth.user);
   const location = useLocation();
   const date = new Date();
   const hour = date.getHours();
@@ -41,7 +42,7 @@ const Content = () => {
               {timeBasedGreeting}
             </p>
             <h1 className="text-lg font-work font-bold text-gray-800 flex items-center gap-2">
-              Welcome back, Elallaoui Younes
+              Welcome back, {user.employee.name}
               <motion.span
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ duration: 1.5, repeat: Infinity }}

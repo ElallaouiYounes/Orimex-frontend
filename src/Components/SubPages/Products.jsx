@@ -8,10 +8,13 @@ import ProductsMetricsSummary from "../Tools/products/ProductsMetricsSummary";
 import ProductCategoryChart from "../Tools/products/ProductCategoryChart";
 import ProductStockChart from "../Tools/products/ProductStockChart";
 import Pagination from "../Global/Pagination";
+import { useSelector } from "react-redux";
 
 const Products = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
+
+  const products = useSelector((state) => state.productsData.products);
 
   const fakeProducts = [
     {
@@ -163,12 +166,12 @@ const Products = () => {
 
           {/* table body */}
           <tbody className="bg-white divide-y divide-gray-200">
-            {fakeProducts
+            {products
               .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
               .map((item, rowIndex) => (
                 <tr key={rowIndex} className="text-xs font-normal text-gray-600 h-10">
                   <td className="px-6 py-3 whitespace-nowrap text-blue-600">
-                    {item.productId}
+                    {item.id}
                   </td>
                   <td className="px-6 py-3 whitespace-nowrap">
                     <Barcode
@@ -196,7 +199,7 @@ const Products = () => {
                     {item.dimensions}
                   </td>
                   <td className="px-6 py-3 whitespace-nowrap">
-                    {item.stock}
+                    {item.current_stock}
                   </td>
                   <td className="px-6 py-3 whitespace-nowrap">
                     {item.price}
@@ -204,21 +207,21 @@ const Products = () => {
                   <td className="px-6 py-3 whitespace-nowrap">
                     <div
                       className={`flex items-center px-2 py-1 gap-1 rounded-xl ${
-                        item.status === "In Stock"
+                        item.stock_status === "in-stock"
                           ? "text-green-500 bg-green-100"
-                          : item.status === "Out of Stock"
+                          : item.stock_status === "out-of-stock"
                           ? "text-red-500 bg-red-100"
                           : "text-amber-500 bg-amber-100"
                       }`}
                     >
-                      {item.status === "In Stock" ? (
+                      {item.stock_status === "in-stock" ? (
                         <FaBox className="text-green-500" />
-                      ) : item.status === "Out of Stock" ? (
+                      ) : item.stock_status === "out-of-stock" ? (
                         <FaTimesCircle className="text-red-500" />
                       ) : (
                         <FaClock className="text-amber-500" />
                       )}
-                      {item.status}
+                      {item.stock_status === 'in-stock' ? 'In Stock' : item.stock_status === 'out-of-stock' ? 'Out Of Stock' : 'Low Stock'}
                     </div>
                   </td>
                   <td className="px-6 py-3 whitespace-nowrap">
@@ -236,17 +239,17 @@ const Products = () => {
 
       <Pagination
         currentPage={currentPage}
-        totalItems={fakeProducts.length}
+        totalItems={products.length}
         itemsPerPage={itemsPerPage}
         onPageChange={setCurrentPage}
       />
 
       {/* Analytics Dashboard */}
       <div className="mt-6">
-        <ProductsMetricsSummary products={fakeProducts} />
+        <ProductsMetricsSummary products={products} />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <ProductCategoryChart products={fakeProducts} />
-          <ProductStockChart products={fakeProducts} />
+          <ProductCategoryChart products={products} />
+          <ProductStockChart products={products} />
         </div>
       </div>
     </div>
